@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
+.content-group-buttons { margin-bottom: 20px !important; }
+.group-buttons-left { float: left; }
+.group-buttons-right { float: right; }
