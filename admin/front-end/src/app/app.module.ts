@@ -5,19 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BlogsModule } from './blogs/blogs.module';
 
-import { BlogsComponent } from './blogs/blogs.component';
-import { BlogNewComponent } from './blog-new/blog-new.component';
-import { BlogUpdateComponent } from './blog-update/blog-update.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BlogsComponent,
-    BlogNewComponent,
-    BlogUpdateComponent,
     DashboardComponent,
     PageNotFoundComponent
   ],
@@ -25,6 +20,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserModule,
     FormsModule,
     HttpModule,
+    BlogsModule,
     AppRoutingModule
   ],
   providers: [],

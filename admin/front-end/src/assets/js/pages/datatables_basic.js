@@ -18,10 +18,10 @@ $(function() {
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
         autoWidth: false,
-        columnDefs: [{ 
+        columnDefs: [{
             orderable: false,
-            width: '100px',
-            targets: [ 5 ]
+            width: '60px',
+            targets: [ 0, 6 ]
         }],
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
@@ -39,7 +39,9 @@ $(function() {
 
 
     // Basic datatable
-    $('.datatable-basic').DataTable();
+    $('.datatable-basic').DataTable({
+        order: [[ 1, "asc" ]]
+    });
 
 
     // Alternative pagination
@@ -77,5 +79,5 @@ $(function() {
         minimumResultsForSearch: Infinity,
         width: 'auto'
     });
-    
+
 });

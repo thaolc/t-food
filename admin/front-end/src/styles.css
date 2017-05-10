@@ -2,4 +2,11 @@
 
 .content-group-buttons { margin-bottom: 20px !important; }
 .group-buttons-left { float: left; }
+.group-buttons-left .btn { display: block; float: left; margin-right: 10px; }
 .group-buttons-right { float: right; }
+
+.form-layouts { padding-top: 40px; }
+.panel-page { border-top: 3px solid #2196f3; }
+
+table .checkbox { margin-top: 0px; margin-bottom: 0px; }
+table .checkbox label { padding-left: 0px; min-height: auto; }
