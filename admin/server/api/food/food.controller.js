@@ -1,34 +1,90 @@
 /*
-* @Author: th_le
-* @Date:   2017-05-22 13:14:35
-* @Last Modified by:   th_le
-* @Last Modified time: 2017-05-22 16:56:33
-*
-* GET     /api/blogs              ->  list
-* POST    /api/blogs              ->  create
-* GET     /api/blogs/:id          ->  getById
-* PUT     /api/blogs/:id          ->  update
-* DELETE  /api/blogs/:id          ->  delete
-*/
+ * @Author: th_le
+ * @Date:   2017-05-22 13:14:35
+ * @Last Modified by:   th_le
+ * @Last Modified time: 2017-05-23 16:29:01
+ *
+ * GET     /api/blogs              ->  list
+ * POST    /api/blogs              ->  create
+ * GET     /api/blogs/:id          ->  getById
+ * PUT     /api/blogs/:id          ->  update
+ * DELETE  /api/blogs/:id          ->  delete
+ */
 
 'use strict';
 
+var _ = require('lodash')
 var Food = require('./food.model');
 
 module.exports = {
-  create: function() {
-
+  list: function(req, res, next) {
+    Blog.find().exec()
+      .then(function(docs) {
+        res.json(docs);
+      })
+      .catch(function(err) {
+        res.status(500).send(err);
+      })
   },
-  list: function() {
-
+  create: function(req, res, next) {
+    Blog.create(res.body)
+      .then(function() {
+        res.sendStatus(201);
+      })
+      .catch(function(err) {
+        res.status(500).send(err);
+      })
   },
-  getById: function() {
-
+  getById: function(req, res, next) {
+    Blog.find(req.params.id).exec()
+      .then(function(doc) {
+        if (!doc) {
+          res.sendStatus(404).end();
+          return null;
+        }
+        res.json(doc);
+      })
+      .catch(function(err) {
+        res.status(500).send(err);
+      })
   },
-  update: function() {
-
+  update: function(req, res, next) {
+    Blog.find(req.params.id).exec()
+      .then(function(doc) {
+        if (!doc) {
+          res.sendStatus(404).end();
+          return null;
+        }
+        return doc;
+      })
+      .then(function(doc) {
+        var updated = _.merge(doc, req.body);
+        updated.save()
+          .then(function() {
+            res.sendStatus(200);
+          })
+      })
+      .catch(function(err) {
+        res.status(500).send(err);
+      })
   },
-  delete: function() {
-
+  delete: function(req, res, next) {
+    Blog.find(req.params.id).exec()
+      .then(function(doc) {
+        if (!doc) {
+          res.sendStatus(404).end();
+          return null;
+        }
+        return doc;
+      })
+      .then(function(doc) {
+        doc.remove()
+          .then(function() {
+            res.sendStatus(200);
+          })
+      })
+      .catch(function(err) {
+        res.status(500).send(err);
+      })
   }
 }
