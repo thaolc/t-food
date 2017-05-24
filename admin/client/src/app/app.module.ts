@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BlogsModule } from './blogs/blogs.module';
+import { FoodsModule } from './foods/foods.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -21,6 +22,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     FormsModule,
     HttpModule,
     BlogsModule,
+    FoodsModule,
     AppRoutingModule
   ],
   providers: [],

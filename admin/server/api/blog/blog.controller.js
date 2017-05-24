@@ -2,7 +2,7 @@
  * @Author: th_le
  * @Date:   2017-05-22 13:12:48
  * @Last Modified by:   th_le
- * @Last Modified time: 2017-05-23 16:30:30
+ * @Last Modified time: 2017-05-24 11:54:47
  *
  * GET     /api/blogs              ->  list
  * POST    /api/blogs              ->  create
@@ -18,73 +18,44 @@ var Blog = require('./blog.model');
 
 module.exports = {
   list: function(req, res, next) {
-    Blog.find().exec()
-      .then(function(docs) {
-        res.json(docs);
-      })
-      .catch(function(err) {
-        res.status(500).send(err);
-      })
+    Blog.getBlogs(function(err, docs) {
+      if(err) {
+        throw err;
+      }
+      res.json(docs);
+    });
   },
   getById: function(req, res, next) {
-    Blog.find(req.params.id).exec()
-      .then(function(doc) {
-        if (!doc) {
-          res.sendStatus(404).end();
-          return null;
-        }
-        res.json(doc);
-      })
-      .catch(function(err) {
-        res.status(500).send(err);
-      })
+    Blog.getBlogById(req.params.id, function(err, doc) {
+      if(err) {
+        throw err;
+      }
+      res.json(doc);
+    });
   },
   create: function(req, res, next) {
-    Blog.create(res.body)
-      .then(function() {
-        res.sendStatus(201);
-      })
-      .catch(function(err) {
-        res.status(500).send(err);
-      })
+    Blog.addBlog(req.body, function(err, doc) {
+      if(err) {
+        throw err;
+      }
+      res.json(doc);
+    });
   },
   update: function(req, res, next) {
-    Blog.find(req.params.id).exec()
-      .then(function(doc) {
-        if (!doc) {
-          res.sendStatus(404).end();
-          return null;
-        }
-        return doc;
-      })
-      .then(function(doc) {
-        var updated = _.merge(doc, req.body);
-        updated.save()
-          .then(function() {
-            res.sendStatus(200);
-          })
-      })
-      .catch(function(err) {
-        res.status(500).send(err);
-      })
+    Blog.updateBlog(req.params.id, req.body, function(err, doc) {
+      if(err) {
+        throw err;
+      }
+      // res.json(req);
+      res.json(doc);
+    });
   },
   delete: function(req, res, next) {
-    Blog.find(req.params.id).exec()
-      .then(function(doc) {
-        if (!doc) {
-          res.sendStatus(404).end();
-          return null;
-        }
-        return doc;
-      })
-      .then(function(doc) {
-        doc.remove()
-          .then(function() {
-            res.sendStatus(200);
-          })
-      })
-      .catch(function(err) {
-        res.status(500).send(err);
-      })
+    Blog.deleteBlog(req.params.id, function(err, doc) {
+      if(err) {
+        throw err;
+      }
+      res.json(doc);
+    });
   }
 }

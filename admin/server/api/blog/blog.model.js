@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-22 13:13:07
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-23 16:42:36
+* @Last Modified time: 2017-05-24 09:51:57
 */
 
 'use strict';
@@ -17,5 +17,39 @@ var BlogSchema = new mongoose.Schema({
   author: String
 });
 
-module.exports = mongoose.model('Blog', BlogSchema);
+var Blog = module.exports = mongoose.model('Blog', BlogSchema);
+
+// Get all blogs
+module.exports.getBlogs = function(callback, limit) {
+  Blog.find(callback).limit(limit);
+}
+
+// Get blog by Id
+module.exports.getBlogById = function(id, callback) {
+  Blog.findById(id, callback);
+}
+
+// Add a new blog
+module.exports.addBlog = function(doc, callback) {
+  Blog.create(doc, callback);
+}
+
+// Update a blog
+module.exports.updateBlog = function(id, doc, callback) {
+  var updates = {
+    title: doc.title,
+    image: doc.image,
+    content: doc.content,
+    date: doc.date,
+    author: doc.author
+  }
+  Blog.findByIdAndUpdate(id, updates, callback);
+}
+
+// Delete a blog
+module.exports.deleteBlog = function(id, callback) {
+  var query = {_id: id};
+  Blog.remove(query, callback);
+}
+
 

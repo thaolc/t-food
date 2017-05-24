@@ -9,8 +9,8 @@ var mongoose = require('mongoose');
 var app = express();
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost:27017/test');
-// var db = mongoose.connection;
+mongoose.connect('mongodb://localhost:27017/foods');
+var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function() {
 //   console.log('connected!');
