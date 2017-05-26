@@ -11,6 +11,8 @@ import { FoodsModule } from './foods/foods.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import { AppConfig } from './app.config';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     FoodsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AppConfig
+  ],
   bootstrap: [AppComponent]
 })
 

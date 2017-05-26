@@ -2,7 +2,7 @@
  * @Author: th_le
  * @Date:   2017-05-22 13:12:48
  * @Last Modified by:   th_le
- * @Last Modified time: 2017-05-24 11:54:47
+ * @Last Modified time: 2017-05-26 11:41:17
  *
  * GET     /api/blogs              ->  list
  * POST    /api/blogs              ->  create
@@ -20,42 +20,42 @@ module.exports = {
   list: function(req, res, next) {
     Blog.getBlogs(function(err, docs) {
       if(err) {
-        throw err;
+        res.status(500).send(err);
       }
-      res.json(docs);
+      res.status(200).json(docs);
     });
   },
   getById: function(req, res, next) {
     Blog.getBlogById(req.params.id, function(err, doc) {
       if(err) {
-        throw err;
+        res.status(500).send(err);
       }
-      res.json(doc);
+      res.status(200).json(doc);
     });
   },
   create: function(req, res, next) {
     Blog.addBlog(req.body, function(err, doc) {
       if(err) {
-        throw err;
+        res.status(500).send(err);
       }
-      res.json(doc);
+      res.status(201).json(doc);
     });
   },
   update: function(req, res, next) {
     Blog.updateBlog(req.params.id, req.body, function(err, doc) {
       if(err) {
-        throw err;
+        res.status(500).send(err);
       }
       // res.json(req);
-      res.json(doc);
+      res.status(200).json(doc);
     });
   },
   delete: function(req, res, next) {
     Blog.deleteBlog(req.params.id, function(err, doc) {
       if(err) {
-        throw err;
+        res.status(500).send(err);
       }
-      res.json(doc);
+      res.status(200).json(doc);
     });
   }
 }
