@@ -10,8 +10,13 @@ var mongoose = require('mongoose');
 var app = express();
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost:27017/foods');
+// set up default mongoose connection
+var mongoDB = 'mongodb://localhost:27017/foods';
+mongoose.connect(mongoDB);
+// get the default connection
 var db = mongoose.connection;
+// bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
