@@ -59,6 +59,15 @@ module.exports = {
     });
   },
   dataTables: function(req, res, next) {
-
+    Blog.dataTables({
+      limit: req.body.length,
+      skip: req.body.start
+    }).then(function (table) {
+      res.json({
+        data: table.data,
+        recordsFiltered: table.total,
+        recordsTotal: table.total
+      });
+    });
   }
 }

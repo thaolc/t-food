@@ -25,7 +25,7 @@ export class BlogsComponent implements OnInit {
       processing: true,
       serverSide: true,
       ajax: {
-        url: 'http://localhost:3000/api/blogs/',
+        url: 'http://localhost:3000/api/blogs/datatable',
         type: 'POST'
       },
       columns: [
