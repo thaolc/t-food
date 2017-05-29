@@ -22,39 +22,39 @@ export class BlogsComponent implements OnInit {
     // Basic datatable
     $('.datatable-blog').DataTable({
       order: [[ 1, "asc" ]],
-      // processing: true,
-      // serverSide: true,
-      // ajax: {
-      //   url: 'http://localhost:3000/api/blogs/',
-      //   type: 'GET'
-      // },
-      // columns: [
-      //   { 'data': null },
-      //   { 'data': 'title' },
-      //   { 'data': 'image' },
-      //   { 'data': 'content' },
-      //   { 'data': 'date' },
-      //   { 'data': 'author' },
-      //   { 'data': null }
-      // ],
-      // columnDefs: [
-      //   {
-      //     targets: [0],
-      //     render: function (data, type, full) {
-      //       return `<div class="checkbox">
-      //                 <label>
-      //                   <input type="checkbox" class="styled">
-      //                 </label>
-      //               </div>`;
-      //     }
-      //   }, {
-      //     targets: [6],
-      //     className: 'text-center',
-      //     render: function (data, type, full) {
-      //       return '<a title="Edit"><i class="icon-pencil3"></i></a>';
-      //     }
-      //   }
-      // ]
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: 'http://localhost:3000/api/blogs/',
+        type: 'POST'
+      },
+      columns: [
+        { 'data': null },
+        { 'data': 'title' },
+        { 'data': 'image' },
+        { 'data': 'content' },
+        { 'data': 'date' },
+        { 'data': 'author' },
+        { 'data': null }
+      ],
+      columnDefs: [
+        {
+          targets: [0],
+          render: function (data, type, full) {
+            return `<div class="checkbox">
+                      <label>
+                        <input type="checkbox" class="styled">
+                      </label>
+                    </div>`;
+          }
+        }, {
+          targets: [6],
+          className: 'text-center',
+          render: function (data, type, full) {
+            return '<a title="Edit"><i class="icon-pencil3"></i></a>';
+          }
+        }
+      ]
     });
 
     // External table additions

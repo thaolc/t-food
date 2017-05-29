@@ -2,7 +2,7 @@
  * @Author: th_le
  * @Date:   2017-05-22 13:12:48
  * @Last Modified by:   th_le
- * @Last Modified time: 2017-05-26 11:41:17
+ * @Last Modified time: 2017-05-29 12:58:05
  *
  * GET     /api/blogs              ->  list
  * POST    /api/blogs              ->  create
@@ -57,5 +57,8 @@ module.exports = {
       }
       res.status(200).json(doc);
     });
+  },
+  dataTables: function(req, res, next) {
+
   }
 }
