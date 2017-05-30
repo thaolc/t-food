@@ -15,6 +15,7 @@
     "jade": "~1.11.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.10.1",
+    "mongoose-datatable": "^1.0.6",
     "mongoose-datatables": "^3.0.0",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"

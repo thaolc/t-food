@@ -2,7 +2,7 @@
  * @Author: th_le
  * @Date:   2017-05-22 13:12:48
  * @Last Modified by:   th_le
- * @Last Modified time: 2017-05-29 12:58:05
+ * @Last Modified time: 2017-05-30 14:14:38
  *
  * GET     /api/blogs              ->  list
  * POST    /api/blogs              ->  create
@@ -58,11 +58,14 @@ module.exports = {
       res.status(200).json(doc);
     });
   },
-  dataTables: function(req, res, next) {
-    Blog.dataTables({
+  datatable: function(req, res, next) {
+    Blog.datatable({
       limit: req.body.length,
       skip: req.body.start
-    }).then(function (table) {
+    }, function(err, table) {
+      if(err) {
+        res.status(500).send(err);
+      }
       res.json({
         data: table.data,
         recordsFiltered: table.total,

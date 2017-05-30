@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-22 13:13:07
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-29 11:00:17
+* @Last Modified time: 2017-05-30 14:15:21
 */
 
 'use strict';
@@ -18,10 +18,7 @@ var BlogSchema = new mongoose.Schema({
   author: String
 });
 
-BlogSchema.plugin(dataTables, {
-  totalKey: 'recordsTotal',
-  dataKey: 'data'
-});
+BlogSchema.plugin(dataTables);
 
 var Blog = module.exports = mongoose.model('Blog', BlogSchema);
 
@@ -58,6 +55,10 @@ module.exports.deleteBlog = function(id, callback) {
   Blog.remove(query, callback);
 }
 
-module.exports = dataTables;
+// Datatable
+module.exports.datatable = function(params, callback) {
+  Blog.dataTables(params, callback);
+}
+
 
 

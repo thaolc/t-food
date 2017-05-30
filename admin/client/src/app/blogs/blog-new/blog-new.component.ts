@@ -1,19 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { BlogService } from '../shared/blog.service';
+import { Blog } from '../shared/blog.model';
+
 @Component({
   selector: 'app-blog-new',
   templateUrl: './blog-new.component.html',
-  styleUrls: ['./blog-new.component.css']
+  styleUrls: ['./blog-new.component.css'],
+  providers: [BlogService]
 })
+
 export class BlogNewComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  blog: Blog = new Blog();
+
+  constructor(private router: Router, private blogService: BlogService) { }
 
   ngOnInit() {
+
   }
 
-  gotoBlogs() {
+  save() {
+    this.blogService.create(this.blog)
+      .then(newBlog => {
+        console.log(newBlog);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  cancel() {
+
+  }
+
+  back() {
     this.router.navigate(['/blogs']);
   }
 

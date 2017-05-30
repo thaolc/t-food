@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-23 17:26:05
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-26 11:52:13
+* @Last Modified time: 2017-05-30 16:08:23
 */
 
 import { Injectable } from '@angular/core';
@@ -29,7 +29,7 @@ export class BlogService {
       .catch(err => console.log(err));
   }
 
-  getById(id): Promise<Blog> {
+  getById(id) {
     const url = this.config.apiUrl + this.blogsUrl + '/' + id;
     return this.http.get(url)
       .toPromise()
@@ -37,7 +37,7 @@ export class BlogService {
       .catch(err => console.log(err));
   }
 
-  create(data): Promise<Blog> {
+  create(data) {
     const url = this.config.apiUrl + this.blogsUrl;
     return this.http.post(url, data)
       .toPromise()
@@ -45,7 +45,7 @@ export class BlogService {
       .catch(err => console.log(err));
   }
 
-  update(id, data): Promise<Blog> {
+  update(id, data) {
     const url = this.config.apiUrl + this.blogsUrl + '/' + id;
     return this.http.put(url, data)
       .toPromise()
@@ -53,7 +53,7 @@ export class BlogService {
       .catch(err => console.log(err));
   }
 
-  delete(id): Promise<Blog> {
+  delete(id) {
     const url = this.config.apiUrl + this.blogsUrl + '/' + id;
     return this.http.delete(url)
       .toPromise()

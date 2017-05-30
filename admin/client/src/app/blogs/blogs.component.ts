@@ -53,8 +53,17 @@ export class BlogsComponent implements OnInit {
           render: function (data, type, full) {
             return '<a title="Edit"><i class="icon-pencil3"></i></a>';
           }
+        }, {
+          orderable: false,
+          width: '60px',
+          targets: [ 0, 6 ]
         }
-      ]
+      ],
+      drawCallback: function( settings ) {
+        $(".styled, .multiselect-container input").uniform({
+          radioClass: 'choice'
+        });
+      }
     });
 
     // External table additions
@@ -69,12 +78,6 @@ export class BlogsComponent implements OnInit {
       minimumResultsForSearch: Infinity,
       width: 'auto'
     });
-
-    $(".styled, .multiselect-container input").uniform({
-      radioClass: 'choice'
-    });
-
-
   }
 
   onNavigate() {

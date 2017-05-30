@@ -15,11 +15,6 @@ export class AppComponent implements OnInit {
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
         autoWidth: false,
-        columnDefs: [{
-            orderable: false,
-            width: '60px',
-            targets: [ 0, 6 ]
-        }],
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
             search: '<span>Filter:</span> _INPUT_',
