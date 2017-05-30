@@ -14,13 +14,26 @@ declare var $: any;
 })
 export class BlogsComponent implements OnInit {
 
-  blogs: any;
-
   constructor(private router: Router, private blogService: BlogService) { }
 
   ngOnInit() {
+    console.log(this.blogService);
+    this.renderDatatable();
+  }
+
+  // Navigate to add new blog screen
+  onNavigate() {
+    this.router.navigate(['/blog/new']);
+  }
+
+  // Delete rows selected (delete blogs selected)
+  onDelete() {
+
+  }
+
+  renderDatatable() {
     // Basic datatable
-    $('.datatable-blog').DataTable({
+    var table = $('.datatable-blog').DataTable({
       order: [[ 1, "asc" ]],
       processing: true,
       serverSide: true,
@@ -49,9 +62,9 @@ export class BlogsComponent implements OnInit {
           }
         }, {
           targets: [6],
-          className: 'text-center',
+          className: 'text-center td-actions',
           render: function (data, type, full) {
-            return '<a title="Edit"><i class="icon-pencil3"></i></a>';
+            return '<a class="btn-edit-record" title="Edit"><i class="icon-pencil3"></i></a>&nbsp;&nbsp;<a class="btn-del-record" title="Delete"><i class="icon-bin"></i></a>';
           }
         }, {
           orderable: false,
@@ -78,19 +91,16 @@ export class BlogsComponent implements OnInit {
       minimumResultsForSearch: Infinity,
       width: 'auto'
     });
-  }
 
-  onNavigate() {
-    this.router.navigate(['/blog/new']);
+    $('.datatable-blog tbody').on( 'click', '.btn-del-record', function() {
+      if(confirm("Are you sure?")){
+         console.log(this.blogService);
+        // this.blogService.delete("592d75b35d35ce0fa8ef20a5")
+        //   .then(() => console.log("Deleted!"))
+        //   .catch(err => console.log(err))
+      } else {
+        console.log('Cancel');
+      }
+    });
   }
-
-  getAll() {
-    this.blogService.list()
-      .then(blogs => {
-        this.blogs = blogs;
-        // console.log(blogs);
-      })
-      .catch(err => console.log(err));
-  }
-
 }

@@ -14,6 +14,7 @@ import { AppConfig } from '../../app.config';
 import { Blog } from './blog.model';
 
 @Injectable()
+
 export class BlogService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -55,6 +56,7 @@ export class BlogService {
 
   delete(id) {
     const url = this.config.apiUrl + this.blogsUrl + '/' + id;
+    console.log(url);
     return this.http.delete(url)
       .toPromise()
       .then(() => null)

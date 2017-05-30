@@ -18,10 +18,10 @@ export class BlogNewComponent implements OnInit {
   constructor(private router: Router, private blogService: BlogService) { }
 
   ngOnInit() {
-
   }
 
-  save() {
+  // Save data
+  onSubmit() {
     this.blogService.create(this.blog)
       .then(newBlog => {
         console.log(newBlog);
@@ -31,11 +31,12 @@ export class BlogNewComponent implements OnInit {
       })
   }
 
-  cancel() {
+  onCancel() {
 
   }
 
-  back() {
+  // Navigate to blogs list screen
+  onBack() {
     this.router.navigate(['/blogs']);
   }
 
