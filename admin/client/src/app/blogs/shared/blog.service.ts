@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-23 17:26:05
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-30 16:08:23
+* @Last Modified time: 2017-05-31 13:05:37
 */
 
 import { Injectable } from '@angular/core';
@@ -56,8 +56,15 @@ export class BlogService {
 
   delete(id) {
     const url = this.config.apiUrl + this.blogsUrl + '/' + id;
-    console.log(url);
     return this.http.delete(url)
+      .toPromise()
+      .then(() => null)
+      .catch(err => console.log(err));
+  }
+
+  deleteMany(data) {
+    const url = this.config.apiUrl + this.blogsUrl + '/delete-many';
+    return this.http.post(url, data)
       .toPromise()
       .then(() => null)
       .catch(err => console.log(err));

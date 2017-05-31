@@ -2,7 +2,7 @@
  * @Author: th_le
  * @Date:   2017-05-22 13:12:48
  * @Last Modified by:   th_le
- * @Last Modified time: 2017-05-30 14:14:38
+ * @Last Modified time: 2017-05-31 13:01:05
  *
  * GET     /api/blogs              ->  list
  * POST    /api/blogs              ->  create
@@ -52,6 +52,14 @@ module.exports = {
   },
   delete: function(req, res, next) {
     Blog.deleteBlog(req.params.id, function(err, doc) {
+      if(err) {
+        res.status(500).send(err);
+      }
+      res.status(200).json(doc);
+    });
+  },
+  deleteMany: function(req, res, next) {
+    Blog.deleteBlogs(req.body, function(err, doc) {
       if(err) {
         res.status(500).send(err);
       }

@@ -14,26 +14,49 @@ declare var $: any;
 })
 export class BlogsComponent implements OnInit {
 
+  dataTable;
+  arrId: string[] = [];
+
   constructor(private router: Router, private blogService: BlogService) { }
 
   ngOnInit() {
-    console.log(this.blogService);
     this.renderDatatable();
   }
 
-  // Navigate to add new blog screen
-  onNavigate() {
+  // Navigate to add-new screen
+  onNavigateNew() {
     this.router.navigate(['/blog/new']);
   }
 
-  // Delete rows selected (delete blogs selected)
-  onDelete() {
-
+  // Navigate to update screen
+  onNavigateUpdate(id) {
+    this.router.navigate(['/blog/update', id]);
   }
 
+  // Delete selected records
+  onDeleteMany() {
+    if(confirm('Are you sure you want to delete selected blogs?')) {
+      this.blogService.deleteMany(this.arrId)
+        .then(() => this.dataTable.ajax.reload())
+        .catch(err => console.log(err))
+    }
+  }
+
+  // Delete current record
+  onDeleteOne(id) {
+    if(confirm('Are you sure you want to delete this blog?')) {
+      this.blogService.delete(id)
+        .then(() => this.dataTable.ajax.reload()) // Reload datatable after delete record
+        .catch(err => console.log(err))
+    }
+  }
+
+  // Render datatable
   renderDatatable() {
+    let self = this;
+
     // Basic datatable
-    var table = $('.datatable-blog').DataTable({
+    self.dataTable = $('.datatable-blog').DataTable({
       order: [[ 1, "asc" ]],
       processing: true,
       serverSide: true,
@@ -41,6 +64,7 @@ export class BlogsComponent implements OnInit {
         url: 'http://localhost:3000/api/blogs/datatable',
         type: 'POST'
       },
+      rowId: '_id',
       columns: [
         { 'data': null },
         { 'data': 'title' },
@@ -79,6 +103,7 @@ export class BlogsComponent implements OnInit {
       }
     });
 
+    // ------------------------------
     // External table additions
     // ------------------------------
 
@@ -92,15 +117,35 @@ export class BlogsComponent implements OnInit {
       width: 'auto'
     });
 
-    $('.datatable-blog tbody').on( 'click', '.btn-del-record', function() {
-      if(confirm("Are you sure?")){
-         console.log(this.blogService);
-        // this.blogService.delete("592d75b35d35ce0fa8ef20a5")
-        //   .then(() => console.log("Deleted!"))
-        //   .catch(err => console.log(err))
+    // Toggle selected class on row
+    $('.datatable-blog tbody').on( 'click', 'tr', function () {
+      let id = self.dataTable.row(this).id();
+      if(!$(this).hasClass('selected')) {
+        $(this).addClass('selected');
+        self.arrId.push(id);
       } else {
-        console.log('Cancel');
+        $(this).removeClass('selected');
+        let index = self.arrId.indexOf(id);
+        self.arrId.splice(index, 1);
       }
+    });
+
+    // --------------------------------
+    // Event click button update record
+    // --------------------------------
+    $('.datatable-blog tbody').on( 'click', '.btn-edit-record', function() {
+      let id = $(this).parents('tr').attr('id');
+      self.onNavigateUpdate(id);
+      return false;
+    });
+
+    // --------------------------------
+    // Event click button delete record
+    // --------------------------------
+    $('.datatable-blog tbody').on( 'click', '.btn-del-record', function() {
+      let id = $(this).parents('tr').attr('id');
+      self.onDeleteOne(id);
+      return false;
     });
   }
 }

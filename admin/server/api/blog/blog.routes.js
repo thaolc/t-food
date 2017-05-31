@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-22 13:13:22
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-30 13:25:41
+* @Last Modified time: 2017-05-31 11:44:25
 */
 
 'use strict';
@@ -17,6 +17,7 @@ router.get('/:id', controller.getById);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.delete('/:id', controller.delete);
+router.post('/delete-many', controller.deleteMany);
 router.post('/datatable', controller.datatable);
 
 module.exports = router;

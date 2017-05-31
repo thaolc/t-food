@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { BlogService } from '../shared/blog.service';
 import { Blog } from '../shared/blog.model';
@@ -10,44 +10,51 @@ import { Blog } from '../shared/blog.model';
   styleUrls: ['./blog-update.component.css'],
   providers: [BlogService]
 })
-export class BlogUpdateComponent implements OnInit {
+export class BlogUpdateComponent implements OnInit, OnDestroy {
 
-  id: string = "592d75b35d35ce0fa8ef20a5"; // Extract id from url
+  private sub: any;
+  id: string; // Extract id from url
   blog: Blog = new Blog(); // Variable hold update data
 
-  constructor(private router: Router, private blogService: BlogService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private blogService: BlogService) { }
 
   ngOnInit() {
+    // Extract id from url
+    this.sub = this.activatedRoute.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
     // Fill data update to controls
     this.blogService.getById(this.id)
       .then(blog => {
-        this.blog.title = blog.title;
-        this.blog.image = blog.image;
-        this.blog.content = blog.content;
-        this.blog.date = blog.date;
-        this.blog.author = blog.author;
+        this.blog = blog;
       })
       .catch(err => console.log(err))
   }
 
-  // Save data
+  // Handle event save data
   onSubmit() {
     this.blogService.update(this.id, this.blog)
-      .then(updatedBlog => {
-        console.log(updatedBlog);
+      .then(updated => {
+        console.log(updated);
       })
       .catch(err => {
         console.log(err);
       })
   }
 
+  // Handle event cancel save data
   onCancel() {
 
   }
 
-  // Navigate to blogs list screen
+  // Navigate to list blogs screen
   onBack() {
     this.router.navigate(['/blogs']);
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

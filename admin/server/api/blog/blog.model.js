@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-22 13:13:07
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-30 14:15:21
+* @Last Modified time: 2017-05-31 15:57:15
 */
 
 'use strict';
@@ -39,19 +39,18 @@ module.exports.addBlog = function(doc, callback) {
 
 // Update a blog
 module.exports.updateBlog = function(id, doc, callback) {
-  var updates = {
-    title: doc.title,
-    image: doc.image,
-    content: doc.content,
-    date: doc.date,
-    author: doc.author
-  }
-  Blog.findByIdAndUpdate(id, updates, callback);
+  Blog.findByIdAndUpdate(id, doc, callback);
 }
 
 // Delete a blog
 module.exports.deleteBlog = function(id, callback) {
   var query = {_id: id};
+  Blog.remove(query, callback);
+}
+
+// Delete selected blogs
+module.exports.deleteBlogs = function(params, callback) {
+  var query = {_id: { $in: params}};
   Blog.remove(query, callback);
 }
 
