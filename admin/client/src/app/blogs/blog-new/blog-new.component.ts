@@ -21,18 +21,21 @@ export class BlogNewComponent implements OnInit {
   }
 
   // Save data
-  onSubmit() {
+  onSubmit(blogForm) {
     this.blogService.create(this.blog)
-      .then(newBlog => {
-        console.log(newBlog);
+      .then(blog => {
+        console.log(blog);
+        this.blog = new Blog();
+        blogForm.reset();
       })
       .catch(err => {
         console.log(err);
       })
   }
 
-  onCancel() {
-
+  onReset(blogForm) {
+    this.blog = new Blog();
+    blogForm.reset();
   }
 
   // Navigate to blogs list screen

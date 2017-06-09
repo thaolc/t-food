@@ -33,10 +33,11 @@ export class BlogUpdateComponent implements OnInit, OnDestroy {
   }
 
   // Handle event save data
-  onSubmit() {
+  onSubmit(blogForm) {
     this.blogService.update(this.id, this.blog)
       .then(updated => {
-        console.log(updated);
+        this.blog = new Blog();
+        blogForm.reset();
       })
       .catch(err => {
         console.log(err);
@@ -44,8 +45,9 @@ export class BlogUpdateComponent implements OnInit, OnDestroy {
   }
 
   // Handle event cancel save data
-  onCancel() {
-
+  onReset(blogForm) {
+    this.blog = new Blog();
+    blogForm.reset();
   }
 
   // Navigate to list blogs screen

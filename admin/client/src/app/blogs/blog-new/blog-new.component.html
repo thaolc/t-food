@@ -9,47 +9,50 @@
 <!-- /page header -->
 <!-- Content area -->
 <div class="content">
-  <div class="content-group-buttons clearfix">
-    <div class="group-buttons-left clearfix">
-      <button type="button" class="btn btn-default btn-raised legitRipple" (click)="onBack()"><i class="icon-arrow-left8 position-left"></i> Back</button>
-      <button type="button" class="btn btn-success btn-raised legitRipple" (click)="onSubmit()"><i class="icon-checkmark3 position-left"></i> Save</button>
+  <form #blogForm="ngForm" (ngSubmit)="onSubmit(blogForm);">
+    <div class="content-group-buttons clearfix">
+      <div class="group-buttons-left clearfix">
+        <button type="button" class="btn btn-default btn-raised legitRipple" (click)="onBack()"><i class="icon-arrow-left8 position-left"></i> Back</button>
+        <button type="submit" class="btn btn-success btn-raised legitRipple" [disabled]="!blogForm.form.valid"><i class="icon-checkmark3 position-left"></i> Save</button>
+      </div>
+      <div class="group-buttons-right clearfix">
+        <button type="button" class="btn bg-slate btn-raised legitRipple" (click)="onReset(blogForm)"><i class="icon-reload-alt position-left"></i> Reset</button>
+      </div>
     </div>
-    <div class="group-buttons-right clearfix">
-      <button type="button" class="btn bg-slate btn-raised legitRipple" (click)="onCancel()"><i class="icon-cross position-left"></i> Cancel</button>
-    </div>
-  </div>
-  <!-- Table -->
-  <div class="panel panel-flat panel-page">
-    <div class="panel-body form-layouts">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="form-group">
-            <label>Title:</label>
-            <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.title" name="title">
+    <!-- Table -->
+    <div class="panel panel-flat panel-page">
+      <div class="panel-body form-layouts">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label>Title:</label>
+              <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.title" name="title" required #title="ngModel">
+              <label class="validation-error-label" *ngIf="!(title.valid || title.pristine)">This field is required.</label>
+            </div>
+            <div class="form-group">
+              <label>Image:</label>
+              <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.image" name="image">
+            </div>
+            <div class="form-group">
+              <label>Content:</label>
+              <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.content" name="content">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Image:</label>
-            <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.image" name="image">
-          </div>
-          <div class="form-group">
-            <label>Content:</label>
-            <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.content" name="content">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Date:</label>
-            <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.date" name="date">
-          </div>
-          <div class="form-group">
-            <label>Author:</label>
-            <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.author" name="author">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Date:</label>
+              <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.date" name="date">
+            </div>
+            <div class="form-group">
+              <label>Author:</label>
+              <input type="text" placeholder="" class="form-control" [(ngModel)]="blog.author" name="author">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- /table -->
+    <!-- /table -->
+  </form>
   <!-- Footer -->
   <div class="footer text-muted">
     &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>

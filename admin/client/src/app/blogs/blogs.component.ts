@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { BlogService } from './shared/blog.service';
 import { Blog } from './shared/blog.model';
+import { AppConfig } from '../app.config'
 
 declare var $: any;
 
@@ -17,7 +18,7 @@ export class BlogsComponent implements OnInit {
   dataTable;
   arrId: string[] = [];
 
-  constructor(private router: Router, private blogService: BlogService) { }
+  constructor(private router: Router, private blogService: BlogService, private config: AppConfig) { }
 
   ngOnInit() {
     this.renderDatatable();
@@ -61,7 +62,7 @@ export class BlogsComponent implements OnInit {
       processing: true,
       serverSide: true,
       ajax: {
-        url: 'http://localhost:3000/api/blogs/datatable',
+        url: self.config.apiUrl + 'blogs/datatable',
         type: 'POST'
       },
       rowId: '_id',

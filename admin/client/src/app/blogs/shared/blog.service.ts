@@ -2,7 +2,7 @@
 * @Author: th_le
 * @Date:   2017-05-23 17:26:05
 * @Last Modified by:   th_le
-* @Last Modified time: 2017-05-31 13:05:37
+* @Last Modified time: 2017-06-08 15:10:22
 */
 
 import { Injectable } from '@angular/core';
@@ -35,7 +35,7 @@ export class BlogService {
     return this.http.get(url)
       .toPromise()
       .then(res => res.json())
-      .catch(err => console.log(err));
+      .catch(err => Promise.reject(err));
   }
 
   create(data) {
@@ -43,7 +43,7 @@ export class BlogService {
     return this.http.post(url, data)
       .toPromise()
       .then(res => res.json())
-      .catch(err => console.log(err));
+      .catch(err => Promise.reject(err));
   }
 
   update(id, data) {
@@ -51,7 +51,7 @@ export class BlogService {
     return this.http.put(url, data)
       .toPromise()
       .then(() => data)
-      .catch(err => console.log(err));
+      .catch(err => Promise.reject(err));
   }
 
   delete(id) {
@@ -59,7 +59,7 @@ export class BlogService {
     return this.http.delete(url)
       .toPromise()
       .then(() => null)
-      .catch(err => console.log(err));
+      .catch(err => Promise.reject(err));
   }
 
   deleteMany(data) {
@@ -67,6 +67,6 @@ export class BlogService {
     return this.http.post(url, data)
       .toPromise()
       .then(() => null)
-      .catch(err => console.log(err));
+      .catch(err => Promise.reject(err));
   }
 }

@@ -11,4 +11,9 @@
 table .checkbox { margin-top: 0px; margin-bottom: 0px; }
 table .checkbox label { padding-left: 0px; min-height: auto; }
 
-table .td-actions a.btn-del-record { color: #F44336; }
+table .td-actions a { color: #333; }
+
+.ng-invalid:not(form)  {
+  border-bottom: 1px solid #F44336; /* red */
+  box-shadow: 0 1px 0 #F44336;
+}
