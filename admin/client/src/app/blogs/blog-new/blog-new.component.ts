@@ -23,8 +23,7 @@ export class BlogNewComponent implements OnInit {
   // Save data
   onSubmit(blogForm) {
     this.blogService.create(this.blog)
-      .then(blog => {
-        console.log(blog);
+      .then(() => {
         this.blog = new Blog();
         blogForm.reset();
       })
