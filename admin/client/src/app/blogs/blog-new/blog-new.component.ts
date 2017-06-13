@@ -103,7 +103,7 @@ export class BlogNewComponent implements OnInit {
     let self = this;
 
     if(file.length) {
-      var url = this.config.apiUrl + "/common/uploader";
+      var url = this.config.apiUrl + "commons/uploader";
       var xhr = new XMLHttpRequest();
       var fd = new FormData();
       xhr.open("POST", url, true);
