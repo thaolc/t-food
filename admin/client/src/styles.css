@@ -17,3 +17,5 @@ table .td-actions a { color: #333; }
   border-bottom: 1px solid #F44336; /* red */
   box-shadow: 0 1px 0 #F44336;
 }
+
+.file-preview-frame { border: 1px solid #ddd; }
