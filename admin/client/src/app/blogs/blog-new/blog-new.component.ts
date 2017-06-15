@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 
 import { BlogService } from '../shared/blog.service';
 import { Blog } from '../shared/blog.model';
@@ -18,10 +19,10 @@ export class BlogNewComponent implements OnInit {
 
   blog: Blog = new Blog();
 
-  constructor(private router: Router, private blogService: BlogService, private config: AppConfig) { }
+  constructor(private router: Router, private blogService: BlogService, private config: AppConfig, private http: Http) { }
 
   ngOnInit() {
-    // this.renderFileInput();
+    this.renderFileInput();
   }
 
   renderFileInput() {
@@ -95,15 +96,15 @@ export class BlogNewComponent implements OnInit {
   }
   // Save data
   onSubmit(blogForm) {
-    let file = $('.file-input')[0].files;
-    this.uploadFile(file, blogForm);
+    let files = $('input.file-input')[0].files;
+    this.uploadFile(files, blogForm);
   }
 
-  uploadFile(file, blogForm) {
+  uploadFile(files, blogForm) {
     let self = this;
 
-    if(file.length) {
-      var url = this.config.apiUrl + "commons/uploader";
+    if(files.length > 0) {
+      let url = this.config.apiUrl + "commons/uploader";
       var xhr = new XMLHttpRequest();
       var fd = new FormData();
       xhr.open("POST", url, true);
@@ -114,8 +115,20 @@ export class BlogNewComponent implements OnInit {
           self.save(blogForm);
         }
       };
-      fd.append('uploaded_file', file);
+      fd.append('image', files.item(0));
       xhr.send(fd);
+
+      // let fd = new FormData();
+      // fd.append('image', files.item(0));
+      // this.http.post(url, fd)
+      //   .map(res => res.json())
+      //   .subscribe((res) => {
+      //     console.log(res);
+      //     self.save(blogForm);
+      //   }, (err) => {
+      //     console.log(err);
+      //   })
+
     }
   }
 
